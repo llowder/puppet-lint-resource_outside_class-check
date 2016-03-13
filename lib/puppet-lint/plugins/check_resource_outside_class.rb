@@ -40,7 +40,7 @@ PuppetLint.new_check(:resource_outside_class) do
       #no class and no defined type
       unless resource_list.length == 0
         notify :warning, {
-          :message => 'resourcss exist but no class or defined type definition found in manifest',
+          :message => 'resources exist but no class or defined type definition found in manifest',
           :line    => resource_list.first[:type].line,
           :column  => resource_list.first[:type].column,
         }

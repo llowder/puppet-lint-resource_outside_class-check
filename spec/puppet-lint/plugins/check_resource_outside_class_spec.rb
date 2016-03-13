@@ -4,7 +4,7 @@ describe 'resource_outside_class' do
 
   let(:class_msg) { 'resource found outside a class definition' }
   let(:define_msg) { 'resource found outside a defined type defintion' }
-  let(:no_class_or_define_msg) { 'resourcss exist but no class or defined type definition found in manifest' }
+  let(:no_class_or_define_msg) { 'resources exist but no class or defined type definition found in manifest' }
 
   context 'with fix disabled' do
 
