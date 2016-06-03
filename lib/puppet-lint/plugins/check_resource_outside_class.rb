@@ -7,15 +7,18 @@ PuppetLint.new_check(:resource_outside_class) do
     bad_resource_list = resource_list.clone
 
     if class_indexes.length > 0
+    # The file has at least a class in it it
       class_list = class_indexes
 
       class_list.each do |cl|
         resource_list.each do |res|
+        # find all good resources
           if ( res[:start] > cl[:start] ) && ( res[:end] < cl[:end] )
               bad_resource_list.delete(res)
           end
         end
       end
+      
       bad_resource_list.each do |res|
         notify :warning,  {
           :message => "resource found outside a class definition ",
