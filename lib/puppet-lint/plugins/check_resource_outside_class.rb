@@ -4,22 +4,25 @@ PuppetLint.new_check(:resource_outside_class) do
     first_token = tokens.first
     last_token = tokens.last
     resource_list = resource_indexes
+    bad_resource_list = resource_list.clone
 
     if class_indexes.length > 0
-      # The file has at least a class in it it
       class_list = class_indexes
-      
+
       class_list.each do |cl|
         resource_list.each do |res|
-          unless ( res[:start] > cl[:start] ) && ( res[:end] < cl[:end] )
-            notify :warning,  {
-              :message => 'resource found outside a class definition',
-              :line    => res[:type].line,
-              :column  => res[:type].column,
-            }
+          if ( res[:start] > cl[:start] ) && ( res[:end] < cl[:end] )
+              bad_resource_list.delete(res)
           end
         end
       end
+      bad_resource_list.each do |res|
+        notify :warning,  {
+          :message => "resource found outside a class definition ",
+          :line    => res[:type].line,
+          :column  => res[:type].column,
+        }
+      end            
 
     elsif defined_type_indexes.length > 0
       #the file has at least a defined type in it
@@ -48,4 +51,3 @@ PuppetLint.new_check(:resource_outside_class) do
     end
   end
 end
-
